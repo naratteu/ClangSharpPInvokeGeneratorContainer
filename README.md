@@ -4,13 +4,12 @@ c Header파일로 c# Wrapper 코드를 만드는데다 가져다 쓸 닷넷도�
 
 ## Example
 
-```bash
-wget https://github.com/webui-dev/webui/releases/download/2.5.0-beta.2/webui-linux-clang-x64.zip
-unzip webui-linux-clang-x64.zip
+```cmd
+curl -L https://github.com/webui-dev/webui/releases/download/2.5.0-beta.2/webui-windows-msvc-x64.zip | tar -x
 
-docker run --rm \
-    -v ./webui-linux-clang-x64/include:/sample \
-    naratteu/clangsharppinvokegenerator ./ClangSharpPInvokeGenerator -f /sample/webui.h -n webui -o /sample/webui.cs
+docker run --rm -v .\webui-windows-msvc-x64\include:/sample naratteu/clangsharppinvokegenerator ./ClangSharpPInvokeGenerator -f /sample/webui.hpp -t /sample/webui.h -n webui -o /sample/webui.cs --libraryPath ..\\..\\..\\webui-windows-msvc-x64\\webui-2.dll --remap "const char *=string"
 
-head ./webui-linux-clang-x64/include/webui.cs # 씨샵코드 생성 체크
+dotnet new console
+echo using static webui.Methods;webui_show(webui_new_window(), "<html><script src=\"webui.js\"></script> Hello World from C! </html>");webui_wait();class NativeTypeName(string name) : Attribute; > Program.cs
+dotnet run /p:AllowUnsafeBlocks=true
 ```
