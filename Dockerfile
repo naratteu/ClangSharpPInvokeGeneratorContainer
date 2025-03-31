@@ -12,7 +12,6 @@ FROM mcr.microsoft.com/dotnet/runtime:8.0-noble
 COPY --from=build /tools /tools
 ENV PATH="/tools:${PATH}"
 
-RUN apt update
-RUN apt install -y llvm-18 clang-18 && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y --no-install-recommends llvm-18 clang-18 && rm -rf /var/lib/apt/lists/*
 ENV CPLUS_INCLUDE_PATH=/usr/lib/llvm-18/lib/clang/18/include/
 ENTRYPOINT ["ClangSharpPInvokeGenerator"]
