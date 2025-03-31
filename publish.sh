@@ -1,6 +1,6 @@
 NAME=naratteu/clangsharppinvokegenerator
-docker build . -t $NAME:latest -t $NAME:20250213
-docker push $NAME:latest
-docker push $NAME:20250213
+DATE=20250331 # $(date +%Y%m%d)
+docker build . -t $NAME:latest -t $NAME:$DATE
+docker push -a $NAME
 
 # todo : 동적 태그 적용? 깃헙액션연동?
